@@ -1,0 +1,35 @@
+﻿@model IList<SpringNet.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employees</h2>
+@Html.ActionLink("Create New", "Create")
+<table>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Telephone</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telephone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+</table>

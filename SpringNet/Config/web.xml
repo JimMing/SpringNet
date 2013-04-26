@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+         xmlns:db="http://www.springframework.net/database"
+         xmlns:tx="http://www.springframework.net/tx">
+
+  <!--Controllers-->
+  <object type="SpringNet.Controllers.ShopController, SpringNet" singleton="false" id="Shop">
+    <property name="ShopService" ref="ShopService"/>
+  </object>
+  <object type="SpringNet.Controllers.HomeController, SpringNet" singleton="false" id="Home"/>
+  <object type="SpringNet.Controllers.AccountController, SpringNet" singleton="false" id="Account"/>
+  <object type="SpringNet.Controllers.EmployeeController, SpringNet" singleton="false" id="Employee">
+    <property name="EmployeeService" ref="EmployeeService"/>
+  </object>
+
+  <!--Services-->
+  <object type="SpringNet.Service.ShopService, SpringNet" id="ShopService">
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>
+  <object type="SpringNet.Service.EmployeeService, SpringNet" id="EmployeeService">
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>
+
+  <!-- Default Database Configuration -->
+  <db:provider id="DbProvider" provider="System.Data.SqlClient" connectionString="Data Source=.;Initial Catalog=Test;Integrated Security=True;"/>
+  <!-- Existing configuration entries come after this line. 
+       Not showing them for the sake of simplicity. -->
+
+  <object id="SessionFactory" type="SpringNet.NHibernate.FluentNhibernateLocalSessionFactoryObject, SpringNet">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="FluentNhibernateMappingAssemblies">
+      <list>
+        <value>SpringNet</value>
+      </list>
+    </property>
+    <property name="MappingAssemblies">
+      <list>
+        <value>SpringNet</value>
+      </list>
+    </property>
+    <property name="HibernateProperties">
+      <dictionary>
+        <entry key="hibernate.connection.provider" value="NHibernate.Connection.DriverConnectionProvider"/>
+        <entry key="dialect" value="NHibernate.Dialect.MsSql2008Dialect"/>
+        <entry key="connection.driver_class" value="NHibernate.Driver.SqlClientDriver"/>
+        <entry key="show_sql" value="false" />
+      </dictionary>
+    </property>
+    <property name="ExposeTransactionAwareSessionFactory" value="true" />
+  </object>
+
+  <object id="transactionManager" type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate32">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="SessionFactory" ref="SessionFactory"/>
+  </object>
+  <tx:attribute-driven/>
+</objects>

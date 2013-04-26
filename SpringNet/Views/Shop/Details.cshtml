@@ -1,0 +1,36 @@
+﻿@model SpringNet.Models.Shop
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+    <fieldset>
+        <legend>Shop</legend>
+
+        <div class="display-field">
+            @Html.Label("Shop Name")
+        </div>
+        <div class="display-label">
+            @Html.DisplayFor(model => model.name)
+        </div>
+
+        <div class="display-field">
+            @Html.Label("Phone Number")
+        </div>
+        <div class="display-label">
+            @Html.DisplayFor(model => model.telephone)
+        </div>
+
+        <div class="display-field">
+            @Html.Label("Shop Address")
+        </div>
+        <div class="display-label">
+            @Html.DisplayFor(model => model.address)
+        </div>
+    </fieldset>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
